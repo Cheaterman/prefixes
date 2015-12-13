@@ -60,3 +60,7 @@ class TestPrefixes(object):
 
     def test_to_string(self, number, prefix):
         assert to_string(number * prefix[1], system=prefix[2]) == str(number) + prefix[0]
+
+    def test_extra_digits_after_prefix(self):
+        assert to_number('1k5') == 1005
+        assert to_string(1005) == '1k5'

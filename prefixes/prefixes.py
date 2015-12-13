@@ -29,7 +29,7 @@ PREFIXES = {
         (
             prefix[0],
             prefix[1],
-            re.compile('(\d+){}'.format(prefix[0])),
+            re.compile('(\d+){}(\d*)'.format(prefix[0])),
         )
         for prefix in prefixes
     ]
@@ -42,7 +42,8 @@ def to_number(string):
         for prefix in prefixes:
             match = re.match(prefix[2], string)
             if match:
-                return float(match.group(1)) * prefix[1]
+                extra = match.group(2)
+                return float(match.group(1)) * prefix[1] + (float(extra) if extra else 0)
     return float(string)
 
 def to_string(number, system='decimal'):
